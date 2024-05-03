@@ -4,9 +4,12 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from yaml import safe_load as load
 
+Image.MAX_IMAGE_PIXELS = 1 << 28  # 16k x 16k
+
 MAP = "map.jpg"
 COORDS = "monsters_location.yml"
-R = 10
+r = 50
+R = 57
 
 basepath = Path(__file__).parent
 
@@ -21,12 +24,13 @@ def draw_map(coords, color="blue") -> Image:
     fenyx_map = Image.open(basepath / MAP)
     draw = ImageDraw.Draw(fenyx_map)
     for x, y in coords:
-        draw.ellipse((x - R, y - R, x + R, y + R), fill=color, outline="white")
+        draw.ellipse((x - R, y - R, x + R, y + R), fill="white")
+        draw.ellipse((x - r, y - r, x + r, y + r), fill=color)
     draw.text(
-        xy=(10, 10),
+        xy=(60, 60),
         text=monster,
         fill=(255, 0, 0),
-        font=ImageFont.load_default(size=82),
+        font=ImageFont.load_default(size=470),
     )
     return fenyx_map
 
