@@ -20,7 +20,7 @@ with open(basepath / COORDS) as f:
     monsters_location = load(f)
 
 
-def draw_map(coords, color="blue") -> Image:
+def draw_map(coords, color="blue", title="") -> Image:
     fenyx_map = Image.open(basepath / MAP)
     draw = ImageDraw.Draw(fenyx_map)
     for x, y in coords:
@@ -28,7 +28,7 @@ def draw_map(coords, color="blue") -> Image:
         draw.ellipse((x - r, y - r, x + r, y + r), fill=color)
     draw.text(
         xy=(60, 60),
-        text=monster,
+        text=title,
         fill=(255, 0, 0),
         font=ImageFont.load_default(size=470),
     )
@@ -41,5 +41,7 @@ if __name__ == "__main__":
             (int(_) for _ in xy.split(","))
             for xy in monsters_location[monster]
         )
-        draw_map(coords).save(basepath / "Maps" / f"{monster}.jpg")
+        draw_map(coords, title=monster).save(
+            basepath / "Maps" / f"{monster}.jpg"
+        )
         logger.info("Saving %s.jpg", monster)
