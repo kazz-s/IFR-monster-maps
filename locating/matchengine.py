@@ -105,17 +105,12 @@ def split(map, parts=4, s=2):
     for left, right in zip(w[:-s], w[s:]):
         for top, bottm in zip(h[:-s], h[s:]):
             img.crop((left, top, right, bottm)).save(f"{left}-{top}.jpg")
-            # print(f"{left:5} {top:5} {right:5} {bottm:5}")
 
 
 if __name__ == "__main__":
-    # main("golden-isle_16k.jpg", "../map.jpg")
-    # main("2.jpg", "Mobs/Gryphons/Gryphons.png")
-    # split("map.jpg")
-
     from pathlib import Path
 
-    for i in Path("locating/SS").iterdir():
+    for i in Path("locating/SS").glob("**/*.png"):
         try:
             print(f"{str(i):40} - {locate(str(i))}")
         except ValueError:

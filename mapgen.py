@@ -37,6 +37,8 @@ def draw_map(coords, color="blue", title="") -> Image:
 
 if __name__ == "__main__":
     for monster in monsters_location:
+        if monster != "Chimeras":
+            continue
         coords = (
             (int(_) for _ in xy.split(","))
             for xy in monsters_location[monster]
